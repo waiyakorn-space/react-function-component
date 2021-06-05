@@ -14,15 +14,15 @@ const App = () => {
   );
 }
 
-const Headline = ({value}) =>{
+const Headline = ({headline}) =>{
 
   return (
-    <h1>{value}</h1>
+    <h1>{headline}</h1>
   )
 }
 
-Headline.propTypes ={
-  value: PropType.string.isRequired
+Headline.defaultProps ={
+  headline: "Hello Word"
 }
     
 
