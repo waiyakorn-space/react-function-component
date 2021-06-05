@@ -1,40 +1,33 @@
-import {useState} from 'react'
-import logo from './logo.svg';
-import './App.css';
+import {useState, useEffect} from 'react'
 
 const App = () => {
-  const greeting = "Hello Function Component!"
+  const initialCount = +localStorage.getItem('storageCount') || 0;
 //const [state, setstate] = useState(initialState) this is a hook
-  const [myTitle,setMyTitle] = useState('Edit something...')
-  const handlerChange = event =>setMyTitle(event.target.value);
+  const [count, setCount] = useState(initialCount);
+  const [myName,setMyName] = useState('Change my name');
+  const handlerIncrement = () => setCount(currentCount => currentCount+1); 
+  const handlerDecrement = () => setCount(currentCount => currentCount-1); 
+
+  useEffect(() => {
+    localStorage.setItem('storageCount',count)
+    console.log('updating when state changed.')
+  },[count])
+/*  ต้องการให้ทำงานทุกครั้ง           ไม่ต้องใส่ ,[]
+    เฉพาะตอน mount or unmount   ใส่ ,[]
+    เปลี่ยนตอนมีตัวแปรเปลี่ยน          ใส่ ,[variable]
+*/
+
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Header value={myTitle} onChangeHeadline={handlerChange}/>
-        <Input value={myTitle} onChangeHeadline={handlerChange}>
-        <h3>Submit :</h3>
-        Some text : 
-        </Input>
-      </header>      
+     <h1>{count}</h1>
+     <h1>{myName}</h1>
+     <button type="button" onClick={handlerIncrement}>Increment</button>
+     <button type="button" onClick={handlerDecrement}>Decrement</button>
+     <br />
+     <button type='button' onClick={() => setMyName('Stan Smith')}>Change name</button>
     </div>
   );
 }
-
-const Header = ({value}) => (
-  <div>
-    <h1>{value}</h1>
-  </div>
-);
-
-const Input = ({value,onChangeHeadline,children}) => (
-  <label>
-    {children}
-    <input type="text" value={value} onChange={onChangeHeadline} />
-  </label>
-);
-
-
 
 export default App;
