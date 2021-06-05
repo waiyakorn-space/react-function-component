@@ -1,28 +1,29 @@
 import {useState, useEffect, useRef, forwardRef} from 'react'
 
-const App = () => {
-  const [greeting,setGreeting] = useState('Hello React!')
+import PropType from 'prop-types'
 
-  const handleChange = event => setGreeting(event.target.value);
+const App = () => {
+  const greeting = 'Hello Function Component!'
+
 
   return (
     <div className="App">
-      <h1>{greeting}</h1>
-      <Input value={greeting} handleChange={handleChange} />
+      <Headline value={greeting}/>
 
     </div>
   );
 }
 
-const Input = ({value,handleChange}) =>{
-  const ref = useRef(); //ต้องการ focus ที่ component นี้
-  useEffect(() => ref.current.focus() ,[]);
+const Headline = ({value}) =>{
 
   return (
-    <input type="text" value={value} onChange={handleChange} ref={ref} />
+    <h1>{value}</h1>
   )
 }
 
+Headline.propTypes ={
+  value: PropType.string.isRequired
+}
     
 
 
