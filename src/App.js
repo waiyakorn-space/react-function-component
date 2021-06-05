@@ -5,23 +5,27 @@ const App = () => {
 
   const handleChange = event => setGreeting(event.target.value);
 
-  const ref = useRef(); //ต้องการ focus ที่ component นี้
-  useEffect(() => ref.current.focus() ,[]);
-
   return (
     <div className="App">
       <h1>{greeting}</h1>
-      <Input value={greeting} handleChange={handleChange} ref={ref}/>
+      <Input value={greeting} handleChange={handleChange} />
 
     </div>
   );
 }
 
-const Input = forwardRef(({value,handleChange},ref) =>(
+const Input = ({value,handleChange}) =>{
+  const ref = useRef(); //ต้องการ focus ที่ component นี้
+  useEffect(() => ref.current.focus() ,[]);
 
+  return (
     <input type="text" value={value} onChange={handleChange} ref={ref} />
+  )
+}
 
-));
+    
+
+
 
 
 export default App;
