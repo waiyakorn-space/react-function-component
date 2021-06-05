@@ -1,32 +1,32 @@
-import {useState, useEffect, useRef, forwardRef} from 'react'
+import {Component,useState, useEffect} from 'react'
 
-import PropType from 'prop-types'
+export default class App extends Component {
+  constructor(props){
+    super(props);
 
-const App = () => {
-  const greeting = 'Hello Function Component!'
+    this.state = {
+      value: localStorage.getItem('myValueInLocalStorage') || ''
+    }
+  }
 
+  componentDidUpdate() {
+    localStorage.setItem('myValueInLocalStorage', this.state.value);
+  }
 
-  return (
-    <div className="App">
-      <Headline value={greeting}/>
+  onChange = event => {
+    this.setState({value: event.target.value})
+  }
 
-    </div>
-  );
+  render() {
+    return (
+      <div>
+        <h1>Hello React ES6 Class Component</h1>
+        <input type="text" value={this.state.value} onChange={this.onChange} />
+
+        <p>{this.state.value}</p>
+
+      </div>
+    )
+  }
 }
 
-const Headline = ({headline}) =>{
-
-  return (
-    <h1>{headline}</h1>
-  )
-}
-
-Headline.defaultProps ={
-  headline: "Hello Word"
-}
-    
-
-
-
-
-export default App;
